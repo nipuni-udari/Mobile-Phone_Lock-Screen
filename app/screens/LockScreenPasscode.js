@@ -18,8 +18,19 @@ class LockScreenPasscode extends Component {
       passcode: ['', '', '', ''],
     };
   }
-}
 
+  _onPressNumber = num => {
+    let tempCode = this.state.passcode;
+    for (var i = 0; i < tempCode.length; i++) {
+      if (tempCode[i] == '') {
+        tempCode[i] = num - -1;
+        break;
+      } else {
+        continue;
+      }
+    }
+    this.setState({passcode: tempCode});
+ 
 export default LockScreenPasscode;
 
 const styles = StyleSheet.create({
@@ -28,4 +39,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     justifyContent: 'space-around',
   },
+ 
 });
