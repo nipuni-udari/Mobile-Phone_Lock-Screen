@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
   TouchableOpacity,
   StatusBar,
   SafeAreaView,
-  Image,
   TouchableHighlight,
+  Image,
+  View,
+  Text,
+  StyleSheet,
+  Alert,
 } from 'react-native';
 
 class LockScreenPasscode extends Component {
@@ -17,6 +18,22 @@ class LockScreenPasscode extends Component {
       passcode: ['', '', '', ''],
     };
   }
+  _popUpMsg = () => {
+    let text = this.state.passcode.toString('1', '2', '3', '4');
+    if ((text == '1', '2', '3', '4')) {
+      Alert.alert('Success!..', ' App will redirect you to the home now!', [
+        {text: 'ok.'},
+      ]);
+    } else {
+      for (var i = 1; i <= 3; i++) {
+        if ((text != '1', '2', '3', '4')) {
+          Alert.alert('Retry!..', ' Please enter your PIN Again!', [
+            {text: 'ok.'},
+          ]);
+        }
+      }
+    }
+  };
 
   _onPressNumber = num => {
     let tempCode = this.state.passcode;
@@ -30,6 +47,7 @@ class LockScreenPasscode extends Component {
     }
     this.setState({passcode: tempCode});
   };
+
   _onPressCancel = () => {
     let tempCode = this.state.passcode;
     for (var i = tempCode.length - 1; i >= 0; i--) {
@@ -42,7 +60,6 @@ class LockScreenPasscode extends Component {
     }
     this.setState({passcode: tempCode});
   };
-
   render() {
     let numbers = [
       {id: 1},
@@ -65,7 +82,7 @@ class LockScreenPasscode extends Component {
             justifyContent: 'center',
           }}>
           <View>
-            <Text style={styles.passCodeText}> Enter your PIN Code</Text>
+            <Text style={styles.Text}> Enter your PIN Code</Text>
           </View>
           <View style={styles.codeContainer}>
             {this.state.passcode.map(p => {
@@ -79,10 +96,9 @@ class LockScreenPasscode extends Component {
             {numbers.map(num => {
               return (
                 <TouchableHighlight
-                  activeOpacity={0.6}
-                  underlayColor="#6bcbc7"
                   style={styles.number}
                   key={num.id}
+                  underlayColor="#6ec8c9"
                   onPress={() => this._onPressNumber(num.id)}>
                   <Text style={styles.numText}> {num.id} </Text>
                 </TouchableHighlight>
@@ -91,8 +107,12 @@ class LockScreenPasscode extends Component {
             <View style={styles.buttons}>
               <TouchableOpacity onPress={() => this._onPressCancel()}>
                 <Image source={require('../assets/images/delete.png')} />
-                <Text>delete</Text>
               </TouchableOpacity>
+              <TouchableHighlight
+                style={styles.number}
+                onPress={() => this._popUpMsg()}>
+                <Text style={styles.buttons}>OK</Text>
+              </TouchableHighlight>
             </View>
           </View>
         </View>
@@ -108,67 +128,68 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     justifyContent: 'space-around',
   },
-  passCodeText: {
-    marginTop: 80,
-    fontFamily: 'Roboto-Regular',
+  Text: {
+    marginTop: 10,
+    fontFamily: 'Roboto-Black',
     fontSize: 25,
     color: '#92969f',
     letterSpacing: 0.34,
     lineHeight: 25,
   },
   codeContainer: {
-    marginTop: 150,
+    alignItems: 'center',
     justifyContent: 'center',
-    alignContent: 'center',
+    marginTop: 145,
     flexDirection: 'row',
+    marginBottom: -150,
   },
   code1: {
-    width: 9,
-    height: 9,
-    borderRadius: 13,
-    borderWidth: 1,
-    borderColor: '#6bcbc7',
     margin: 8,
-    backgroundColor: '#6bcbc7',
+    width: 10,
+    height: 12,
+    borderRadius: 13,
+    borderWidth: 2,
+    borderColor: '#1bddf2',
+    backgroundColor: '#1bddf2',
   },
 
   code2: {
-    width: 12,
-    height: 12,
-    borderRadius: 13,
-    borderWidth: 1,
-    borderColor: '#75b8b7',
     margin: 8,
-    backgroundColor: '#75b8b7',
+    width: 12,
+    height: 14,
+    borderRadius: 13,
+    borderWidth: 2,
+    borderColor: '#0ba39c',
+    backgroundColor: '#0ba39c',
   },
   number: {
-    margin: 9,
-    width: 75,
-    height: 75,
-    borderRadius: 75,
-    backgroundColor: '#f0f3fa',
     justifyContent: 'center',
     alignItems: 'center',
+    width: 75,
+    height: 75,
+    margin: 8,
+    borderRadius: 75,
+    backgroundColor: '#f0f3fa',
   },
   numberContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    width: 282,
-    height: 348,
     alignItems: 'center',
     justifyContent: 'center',
-    color: '#6cc9c7',
+    color: '#0a191a',
+    marginTop: 58,
+    width: 282,
+    height: 348,
   },
   numText: {
-    fontFamily: 'Roboto-Light',
-    fontSize: 36,
-    color: '#969eab',
-    letterSpacing: 0,
+    color: '#92969f',
     textAlign: 'center',
+    fontFamily: 'Roboto-Black',
+    fontSize: 38,
   },
 
   buttons: {
     alignItems: 'center',
-    marginRight: -40,
+    marginRight: -65,
   },
 });
