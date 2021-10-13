@@ -44,3 +44,50 @@ export default class ApplicationLocked extends Component {
     );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  Text: {
+    fontFamily: 'Roboto-Black',
+    fontSize: 25,
+    color: '#92969f',
+    letterSpacing: 0.34,
+    lineHeight: 25,
+  },
+
+  image: {
+    width: 32,
+    height: 35,
+    marginTop: 170,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  Text2: {
+    marginTop: 100,
+    fontFamily: 'Roboto-Black',
+    fontSize: 20,
+    color: '#92969f',
+    letterSpacing: 0.34,
+    lineHeight: 25,
+    justifyContent: 'flex-end',
+    marginLeft: 5,
+    marginRight: 5,
+    textAlign: 'center',
+  },
+  Text3View: {
+    backgroundColor: '#a6dde0',
+    width: 100,
+    height: 60,
+    marginTop: 100,
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
+
+  Text3: {
+    fontFamily: 'Roboto-Black',
+    fontSize: 22,
+    marginLeft: 20,
+  },
+});
