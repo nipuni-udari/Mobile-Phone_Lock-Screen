@@ -10,3 +10,11 @@ import {
   Alert,
   TouchableHighlight,
 } from 'react-native';
+
+class LockScreenPasscode extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        passcode: ['', '', '', ''],
+      };
+    }
