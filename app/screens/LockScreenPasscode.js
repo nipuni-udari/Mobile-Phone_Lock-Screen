@@ -110,5 +110,67 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     justifyContent: 'space-around',
   },
- 
+  passCodeText: {
+    marginTop: 80,
+    fontFamily: 'Roboto-Regular',
+    fontSize: 25,
+    color: '#92969f',
+    letterSpacing: 0.34,
+    lineHeight: 25,
+  },
+  codeContainer: {
+    marginTop: 150,
+    justifyContent: 'center',
+    alignContent: 'center',
+    flexDirection: 'row',
+  },
+  code1: {
+    width: 9,
+    height: 9,
+    borderRadius: 13,
+    borderWidth: 1,
+    borderColor: '#6bcbc7',
+    margin: 8,
+    backgroundColor: '#6bcbc7',
+  },
+
+  code2: {
+    width: 12,
+    height: 12,
+    borderRadius: 13,
+    borderWidth: 1,
+    borderColor: '#75b8b7',
+    margin: 8,
+    backgroundColor: '#75b8b7',
+  },
+  number: {
+    margin: 9,
+    width: 75,
+    height: 75,
+    borderRadius: 75,
+    backgroundColor: '#f0f3fa',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  numberContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: 282,
+    height: 348,
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#6cc9c7',
+  },
+  numText: {
+    fontFamily: 'Roboto-Light',
+    fontSize: 36,
+    color: '#969eab',
+    letterSpacing: 0,
+    textAlign: 'center',
+  },
+
+  buttons: {
+    alignItems: 'center',
+    marginRight: -40,
+  },
 });
