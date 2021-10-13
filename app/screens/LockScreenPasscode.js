@@ -57,6 +57,50 @@ class LockScreenPasscode extends Component {
         {id: 9},
         {id: 0},
       ];
+      return (
+        <SafeAreaView style={styles.container}>
+          <StatusBar barStyle="light-content" />
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <View>
+              <Text style={styles.passCodeText}> Enter your PIN Code</Text>
+            </View>
+            <View style={styles.codeContainer}>
+              {this.state.passcode.map(p => {
+                let style = p != '' ? styles.code2 : styles.code1;
+                return <View style={style} />;
+              })}
+            </View>
+          </View>
+          <View style={{alignItems: 'center', justifyContent: 'center'}}>
+            <View style={styles.numberContainer}>
+              {numbers.map(num => {
+                return (
+                  <TouchableHighlight
+                    activeOpacity={0.6}
+                    underlayColor="#6bcbc7"
+                    style={styles.number}
+                    key={num.id}
+                    onPress={() => this._onPressNumber(num.id)}>
+                    <Text style={styles.numText}> {num.id} </Text>
+                  </TouchableHighlight>
+                );
+              })}
+              <View style={styles.buttons}>
+                <TouchableOpacity onPress={() => this._onPressCancel()}>
+                  <Image source={require('../assets/images/delete.png')} />
+                  <Text>delete</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </SafeAreaView>
+      );
+    }
+  }
  
 export default LockScreenPasscode;
 
