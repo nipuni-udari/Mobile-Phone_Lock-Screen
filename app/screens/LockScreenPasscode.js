@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   },
   Text: {
     marginTop: 10,
-    fontFamily: 'Roboto-Black',
+    fontFamily: 'Roboto-Regular',
     fontSize: 25,
     color: '#92969f',
     letterSpacing: 0.34,
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
   numText: {
     color: '#92969f',
     textAlign: 'center',
-    fontFamily: 'Roboto-Black',
+    fontFamily: 'Roboto-Light',
     fontSize: 38,
   },
 

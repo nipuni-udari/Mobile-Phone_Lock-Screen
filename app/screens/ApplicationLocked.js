@@ -1,93 +1,195 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {Component} from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
   TouchableOpacity,
   StatusBar,
   SafeAreaView,
-  Dimensions,
   TouchableHighlight,
   Image,
+  View,
+  Text,
+  StyleSheet,
+  Alert,
 } from 'react-native';
 
-export default class ApplicationLocked extends Component {
+class LockScreenPasscode extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      passcode: ['', '', '', ''],
+    };
+  }
+  _popUpMsg = () => {
+    let text = this.state.passcode.toString('1', '2', '3', '4');
+    if ((text == '1', '2', '3', '4')) {
+      Alert.alert('Success!..', ' App will redirect you to the home now!', [
+        {text: 'ok.'},
+      ]);
+    } else {
+      for (var i = 1; i <= 3; i++) {
+        if ((text != '1', '2', '3', '4')) {
+          Alert.alert('Retry!..', ' Please enter your PIN Again!', [
+            {text: 'ok.'},
+          ]);
+        }
+      }
+    }
+  };
+
+  _onPressNumber = num => {
+    let tempCode = this.state.passcode;
+    for (var i = 0; i < tempCode.length; i++) {
+      if (tempCode[i] == '') {
+        tempCode[i] = num - -1;
+        break;
+      } else {
+        continue;
+      }
+    }
+    this.setState({passcode: tempCode});
+  };
+
+  _onPressCancel = () => {
+    let tempCode = this.state.passcode;
+    for (var i = tempCode.length - 1; i >= 0; i--) {
+      if (tempCode[i] != '') {
+        tempCode[i] = '';
+        break;
+      } else {
+        continue;
+      }
+    }
+    this.setState({passcode: tempCode});
+  };
   render() {
+    let numbers = [
+      {id: 1},
+      {id: 2},
+      {id: 3},
+      {id: 4},
+      {id: 5},
+      {id: 6},
+      {id: 7},
+      {id: 8},
+      {id: 9},
+      {id: 0},
+    ];
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="light-content" />
         <View
           style={{
-            marginTop: 100,
             alignItems: 'center',
             justifyContent: 'center',
           }}>
           <View>
-            <Text style={styles.Text}> Maximum attempts reached</Text>
+            <Text style={styles.Text}> Enter your PIN Code</Text>
           </View>
-          <View style={styles.image}>
-            <Image source={require('../assets/images/Lock.jpeg')} />
+          <View style={styles.codeContainer}>
+            {this.state.passcode.map(p => {
+              let style = p != '' ? styles.code2 : styles.code1;
+              return <View style={style} />;
+            })}
           </View>
-          <View>
-            <Text style={styles.Text2}>
-              To protect your information, access has been locked for 5 minutes.
-              Come back later and try again.
-            </Text>
-          </View>
-          <TouchableOpacity onPress={() => this}>
-            <View style={styles.Text3View}>
-              <Text style={styles.Text3}> Quit</Text>
+        </View>
+        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+          <View style={styles.numberContainer}>
+            {numbers.map(num => {
+              return (
+                <TouchableHighlight
+                  style={styles.number}
+                  key={num.id}
+                  underlayColor="#6ec8c9"
+                  onPress={() => this._onPressNumber(num.id)}>
+                  <Text style={styles.numText}> {num.id} </Text>
+                </TouchableHighlight>
+              );
+            })}
+            <View style={styles.buttons}>
+              <TouchableOpacity onPress={() => this._onPressCancel()}>
+                <Image source={require('../assets/Image/Icon/ICON.png')} />
+              </TouchableOpacity>
+              <TouchableHighlight
+                style={styles.number}
+                onPress={() => this._popUpMsg()}>
+                <Text style={styles.buttons}>OK</Text>
+              </TouchableHighlight>
             </View>
-          </TouchableOpacity>
+          </View>
         </View>
       </SafeAreaView>
     );
   }
 }
+export default LockScreenPasscode;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    justifyContent: 'space-around',
   },
   Text: {
+    marginTop: 10,
     fontFamily: 'Roboto-Black',
     fontSize: 25,
     color: '#92969f',
     letterSpacing: 0.34,
     lineHeight: 25,
   },
-
-  image: {
-    width: 32,
-    height: 35,
-    marginTop: 170,
+  codeContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 145,
+    flexDirection: 'row',
+    marginBottom: -150,
   },
-  Text2: {
-    marginTop: 100,
-    fontFamily: 'Roboto-Black',
-    fontSize: 20,
-    color: '#92969f',
-    letterSpacing: 0.34,
-    lineHeight: 25,
-    justifyContent: 'flex-end',
-    marginLeft: 5,
-    marginRight: 5,
-    textAlign: 'center',
-  },
-  Text3View: {
-    backgroundColor: '#a6dde0',
-    width: 100,
-    height: 60,
-    marginTop: 100,
-    alignContent: 'center',
-    justifyContent: 'center',
+  code1: {
+    margin: 8,
+    width: 10,
+    height: 12,
+    borderRadius: 13,
+    borderWidth: 2,
+    borderColor: '#1bddf2',
+    backgroundColor: '#1bddf2',
   },
 
-  Text3: {
+  code2: {
+    margin: 8,
+    width: 12,
+    height: 14,
+    borderRadius: 13,
+    borderWidth: 2,
+    borderColor: '#0ba39c',
+    backgroundColor: '#0ba39c',
+  },
+  number: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 75,
+    height: 75,
+    margin: 8,
+    borderRadius: 75,
+    backgroundColor: '#f0f3fa',
+  },
+  numberContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#0a191a',
+    marginTop: 58,
+    width: 282,
+    height: 348,
+  },
+  numText: {
+    color: '#92969f',
+    textAlign: 'center',
     fontFamily: 'Roboto-Black',
-    fontSize: 22,
-    marginLeft: 20,
+    fontSize: 38,
+  },
+
+  buttons: {
+    alignItems: 'center',
+    marginRight: -65,
   },
 });
