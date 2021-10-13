@@ -1,4 +1,4 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {Component} from 'react';
 import {
   View,
   Text,
@@ -7,88 +7,89 @@ import {
   StatusBar,
   SafeAreaView,
   Dimensions,
+  Button,
   TouchableHighlight,
   Image,
 } from 'react-native';
 
-export default class ApplicationLocked extends Component {
+class ApplicationLocked extends Component {
+  constructor() {
+    super();
+    this.state = {
+      seconds: 60,
+    };
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({seconds: this.state.seconds - 1});
+    }, 1000);
+  }
+
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="light-content" />
-        <View
-          style={{
-            marginTop: 100,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <View>
-            <Text style={styles.Text}> Maximum attempts reached</Text>
-          </View>
-          <View style={styles.image}>
-            <Image source={require('../assets/images/Lock.jpeg')} />
-          </View>
-          <View>
-            <Text style={styles.Text2}>
-              To protect your information, access has been locked for 5 minutes.
-              Come back later and try again.
-            </Text>
-          </View>
-          <TouchableOpacity onPress={() => this}>
-            <View style={styles.Text3View}>
-              <Text style={styles.Text3}> Quit</Text>
-            </View>
-          </TouchableOpacity>
+      <View>
+        <View>
+          <Text style={styles.Text}> Maximum attempts reached </Text>
         </View>
-      </SafeAreaView>
+        <View>
+          <Text style={styles.Text2}>Time:{this.state.seconds}</Text>
+        </View>
+        <View style={styles.screenIcon}>
+          <Image
+            source={require('../assets/images/Lock.jpeg')}
+            style={{width: 60, height: 70, borderRadius: 40}}
+          />
+        </View>
+        <View>
+          <Text style={styles.Text1}>To protect your information,access</Text>
+          <Text style={styles.Text1}> has been locked for 5 minites.</Text>
+          <Text style={styles.Text1}>Come back later and try again. </Text>
+        </View>
+        <View style={styles.screenContainer}>
+          <Button title="Quit" color="#80e9d8" />
+        </View>
+      </View>
     );
   }
 }
 
+export default ApplicationLocked;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
   },
   Text: {
-    fontFamily: 'Roboto-Light',
-    fontSize: 25,
-    color: '#92969f',
-    letterSpacing: 0.34,
-    lineHeight: 25,
-  },
-
-  image: {
-    width: 32,
-    height: 35,
-    marginTop: 170,
-    alignItems: 'center',
-    justifyContent: 'center',
+    fontSize: 20,
+    color: '#a6d8e8',
+    textAlign: 'center',
+    marginTop: 50,
+    fontFamily: 'Roboto',
   },
   Text2: {
-    marginTop: 100,
-    fontFamily: 'Roboto-Regular',
     fontSize: 20,
-    color: '#92969f',
-    letterSpacing: 0.34,
-    lineHeight: 25,
-    justifyContent: 'flex-end',
-    marginLeft: 5,
-    marginRight: 5,
+    color: '#313334',
     textAlign: 'center',
+    marginTop: 80,
+    fontFamily: 'Roboto',
+    padding: 8,
+    color: 'red',
   },
-  Text3View: {
-    backgroundColor: '#a6dde0',
-    width: 100,
-    height: 60,
-    marginTop: 100,
-    alignContent: 'center',
-    justifyContent: 'center',
+
+  Text1: {
+    fontSize: 15,
+    color: '#313334',
+    textAlign: 'center',
+    fontFamily: 'Roboto',
+    top: 230,
   },
-  
-  Text3: {
-    fontFamily: 'Roboto-Light',
-    fontSize: 22,
-    marginLeft: 20,
+  screenContainer: {
+    padding: 160,
+    marginTop: 120,
+  },
+  screenIcon: {
+    alignItems: 'center',
+    top: 115,
   },
 });
