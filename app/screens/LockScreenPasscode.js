@@ -30,6 +30,19 @@ class LockScreenPasscode extends Component {
       }
     }
     this.setState({passcode: tempCode});
+
+    _onPressCancel = () => {
+      let tempCode = this.state.passcode;
+      for (var i = tempCode.length - 1; i >= 0; i--) {
+        if (tempCode[i] != '') {
+          tempCode[i] = '';
+          break;
+        } else {
+          continue;
+        }
+      }
+      this.setState({passcode: tempCode});
+    };
  
 export default LockScreenPasscode;
 
